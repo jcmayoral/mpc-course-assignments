@@ -19,10 +19,10 @@ class ModelPredictiveControl:
     def cost_function(self, u):
         cost = 0.0
         temp = 0.0
-        cost_list = []
+
         for i in range(0, self.horizon):
             temp = self.plant_model(u[i], temp)
-            cost = abs(temp-40)
+            cost += abs(temp-40)
         return cost
 
 
