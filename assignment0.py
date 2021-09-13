@@ -12,16 +12,17 @@ class ModelPredictiveControl:
         knob_temp = knob_angle * 0.5
         # Calculate dT or change in temperature.
         tau = 6
-        dT = 0
+        dT = (knob_temp - prev_temp)/tau
         # new temp = current temp + change in temp.
         return prev_temp + dT 
 
     def cost_function(self, u):
         cost = 0.0
         temp = 0.0
+        cost_list = []
         for i in range(0, self.horizon):
             temp = self.plant_model(u[i], temp)
-
+            cost = abs(temp-40)
         return cost
 
 
@@ -56,6 +57,7 @@ for t in range(40):
     knob_angle_list += [knob_angle]
     water_temp_list += [water_temp]
     water_temp = mpc.plant_model(knob_angle, water_temp)
+    print("WT", water_temp)
 
 # Create Plot 1 - Constant Input
 # Subplot 1
