@@ -75,7 +75,7 @@ plt.ylabel("Water Temp")
 # Enter Data
 plt.plot(t_list, water_temp_list, 'ro')
 plt.ylim(0,50)
-plt.show()
+plt.show(block=False)
 
 # --------------------------
 # Calculate data for Plot 2.
