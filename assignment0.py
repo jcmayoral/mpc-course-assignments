@@ -23,6 +23,7 @@ class ModelPredictiveControl:
         for i in range(0, self.horizon):
             temp = self.plant_model(u[i], temp)
             cost += abs(temp-40)
+        print ("cost: ", cost)
         return cost
 
 
