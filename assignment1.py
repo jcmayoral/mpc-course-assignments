@@ -31,6 +31,10 @@ class ModelPredictiveControl:
             state = self.plant_model(state, self.dt, u[k*2],u[k*2+1])
             cost += (ref[0] - state[0])**2
             #cost += 1-u[k*2]
+            if state[3]*self.dt > (ref[0] - state[0]):
+               cost+=10000 
+            
+            #m/s to km/hr
             if state[3]*3.6 > 10:
                 cost += 2000*np.fabs(state[3] - 10)
         return cost
