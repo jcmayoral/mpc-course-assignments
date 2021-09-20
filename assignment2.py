@@ -43,9 +43,9 @@ class ModelPredictiveControl:
             cost += 1.0*abs(ref[1] - state[1])**2
             cost += 1.0*abs(ref[2] - state[2])**2
             #Limit Speed change
-            cost += 100.0*abs(vt_ref - state[3])**2
+            #abs(vt_ref - state[3])**2
             #LIMIT STEERING
-            cost += 2.0*u[k*2+1]**2
+            #cost += 2.0*u[k*2+1]**2
         return cost
 
 sim_run(options, ModelPredictiveControl)
