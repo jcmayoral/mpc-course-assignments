@@ -18,6 +18,9 @@ class ModelPredictiveControl:
         self.x_obs = 5
         self.y_obs = 0
 
+        self.x_obs2 = [5,2]
+        self.y_obs2 = [0,2]
+
     def plant_model(self,prev_state, dt, pedal, steering):
         x_t = prev_state[0]
         y_t = prev_state[1]
@@ -45,15 +48,16 @@ class ModelPredictiveControl:
             cost += 1.0*abs(ref[0] - state[0])**2
             cost += 1.0*abs(ref[1] - state[1])**2
             cost += 1.0*abs(ref[2] - state[2])**2
-            cost += self.calculate_distance(state, ref[1], ref[2])
+            for ox,oy in zip(self.x_obs2, self.y_obs2):                
+                cost += self.calculate_distance(state, ref[0], ref[1],ox,oy)
         return cost
     
     def dist2goal(self, x, y, goalx, goaly):
         return 0.1*np.sqrt(abs(goalx - x)**2 + abs(goaly - y)**2)
 
     
-    def calculate_distance(self,state, goalx, goaly):
-        distance = np.sqrt(np.power(state[0]-self.x_obs,2)+ np.power(state[1]-self.y_obs,2))
+    def calculate_distance(self,state, goalx, goaly, ox,oy):
+        distance = np.sqrt(np.power(state[0]-ox,2)+ np.power(state[1]-oy,2))
         return self.dist2goal(state[0], state[1], goalx, goaly) if distance > 3 else 10./distance
 
 sim_run(options, ModelPredictiveControl)
