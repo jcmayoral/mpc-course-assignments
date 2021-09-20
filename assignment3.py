@@ -16,7 +16,7 @@ class ModelPredictiveControl:
         self.reference2 = None
 
         self.x_obs = 5
-        self.y_obs = 0.1
+        self.y_obs = 0
 
     def plant_model(self,prev_state, dt, pedal, steering):
         x_t = prev_state[0]
